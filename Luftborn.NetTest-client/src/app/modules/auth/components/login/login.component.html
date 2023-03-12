@@ -1,0 +1,35 @@
+<mat-card class="shadow-lg pt-4" style="width: 450px; border: 1px solid #dadce0">
+	<div class="text-center my-2"></div>
+	<form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+		<mat-card-header>
+			<mat-card-title class="mb-3">login</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Username</mat-label>
+				<input type="text" matInput formControlName="username" />
+				<mat-error *ngIf="username.errors?.['required']"> username is <strong>required</strong> </mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Password</mat-label>
+				<input matInput autocomplete="current-password" [type]="hide ? 'password' : 'text'" formControlName="password" />
+				<button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+					<mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+				</button>
+				<mat-error *ngIf="password.errors?.['minlength'] && !password.errors?.['required']">
+					password must be greater than {{password.errors?.['minlength']?.['requiredLength']}} character
+				</mat-error>
+				<mat-error *ngIf="password.errors?.['required']"> Password is <strong>required</strong> </mat-error>
+			</mat-form-field>
+		</mat-card-content>
+		<mat-card-actions align="end" class="justify-content-between">
+			<div>
+				<button type="button" mat-stroked-button color="warn" class="mx-2" (click)="handleForgetPassword()">Forget password?</button>
+			</div>
+			<div>
+				<button type="button" mat-stroked-button color="primary" class="mx-2" (click)="handleRegister()">Register</button>
+				<button mat-raised-button color="primary" [disabled]="!loginForm.valid || logging">login</button>
+			</div>
+		</mat-card-actions>
+	</form>
+</mat-card>

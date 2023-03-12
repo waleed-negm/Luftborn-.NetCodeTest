@@ -1,0 +1,33 @@
+{
+	"dir": "ltr",
+	"lang": "en",
+	"id": "/",
+	"name": "Luftborn .Net Test",
+	"short_name": "LuftbornTest",
+	"theme_color": "#02081a",
+	"background_color": "#02081a",
+	"display": "fullscreen",
+	"start_url": "./",
+	"icons": [
+		{"src": "assets/icons/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png"},
+		{"src": "assets/icons/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png"},
+		{"src": "assets/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"},
+		{"src": "assets/icons/favicon-16x16.png", "sizes": "16x16", "type": "image/png"},
+		{"src": "assets/icons/favicon-32x32.png", "sizes": "32x32", "type": "image/png"},
+		{"src": "assets/icons/Luftborn.ico", "sizes": "256x256", "type": "image/x-icon"}
+	],
+	"shortcuts": [
+		{
+			"name": "All categories",
+			"short_name": "categories",
+			"description": "View the list of all registered categories",
+			"url": "/categories/all"
+		},
+		{
+			"name": "All items data",
+			"short_name": "items",
+			"description": "View the list of all registered items",
+			"url": "/items/all"
+		}
+	]
+}

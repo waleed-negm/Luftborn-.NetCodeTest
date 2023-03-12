@@ -1,0 +1,14 @@
+<div class="container">
+	<h3 mat-dialog-title>You are going to delete the following item, Are you sure?</h3>
+	<div mat-dialog-content>
+		<h4><strong>Id:</strong> {{data.id}}</h4>
+		<h4><strong>name:</strong> {{data.name}}</h4>
+		<h4><strong>quantity:</strong> {{data.quantity}}</h4>
+		<h4><strong>price:</strong> {{data.price}}</h4>
+		<h4><strong>category:</strong> {{data.categoryName}}</h4>
+	</div>
+	<div mat-dialog-actions>
+		<button mat-raised-button color="warn" (click)="confirmDelete()">{{isSubmitting?'wait':'Delete'}}</button>
+		<button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+	</div>
+</div>

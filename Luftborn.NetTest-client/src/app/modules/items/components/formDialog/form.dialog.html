@@ -1,0 +1,48 @@
+<div class="container">
+	<h2 mat-dialog-title *ngIf="id.value; else update">Edit Item</h2>
+	<ng-template #update>
+		<h2 mat-dialog-title>New Item</h2>
+	</ng-template>
+	<mat-dialog-content>
+		<form [formGroup]="form" (ngSubmit)="handleSubmit()" class="d-flex flex-column mat-dialog-content">
+			<div class="row">
+				<div class="col-6">
+					<mat-form-field class="w-100">
+						<mat-label>Name</mat-label>
+						<input matInput formControlName="name" />
+						<mat-error *ngIf="name.hasError('required') && (name.touched || name.dirty)">Name is <strong>required</strong> </mat-error>
+						<mat-error *ngIf="name.hasError('maxlength') && !name.hasError('required') && (name.touched || name.dirty)">Name is <strong>100</strong> character</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-6">
+					<mat-form-field appearance="fill" class="w-100">
+						<mat-label>Category</mat-label>
+						<mat-select formControlName="categoryId">
+							<mat-option *ngFor="let cat of CategoriesDataSource" [value]="cat.id">{{ cat.name }}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<mat-form-field appearance="fill" class="w-100">
+						<mat-label>quantity</mat-label>
+						<input type="number" min="0" matInput formControlName="quantity" />
+						<mat-error *ngIf="quantity.hasError('required') && (quantity.touched || quantity.dirty)">Quantity is <strong>required</strong> </mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-6">
+					<mat-form-field appearance="fill" class="w-100">
+						<mat-label>price</mat-label>
+						<input type="number" min="0" matInput formControlName="price" />
+						<mat-error *ngIf="price.hasError('required') && (price.touched || price.dirty)">Price is <strong>required</strong> </mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<div mat-dialog-actions>
+				<button mat-raised-button type="submit" color="primary" [disabled]="!form.valid||isSubmitting" class="mx-2 px-4">{{isSubmitting?'wait':'save'}}</button>
+				<button type="button" mat-stroked-button color="warn" (click)="onNoClick()" tabindex="-1">cancel</button>
+			</div>
+		</form>
+	</mat-dialog-content>
+</div>

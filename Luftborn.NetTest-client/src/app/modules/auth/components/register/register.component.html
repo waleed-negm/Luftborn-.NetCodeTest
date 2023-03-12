@@ -1,0 +1,78 @@
+<mat-card class="shadow-lg" style="width: 450px; border: 1px solid #dadce0">
+	<form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+		<mat-card-header>
+			<mat-card-title class="mb-3">Register</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="row">
+				<div class="col-6">
+					<mat-form-field appearance="fill" class="w-100">
+						<mat-label>First Name</mat-label>
+						<input matInput autocomplete="off" type="text" formControlName="firstName" />
+						<mat-error *ngIf="firstName.errors?.['required']"> username is <strong>required</strong> </mat-error>
+						<mat-error *ngIf="firstName.hasError('maxlength') && !firstName.errors?.['required']">
+							first name must be less than {{firstName.errors?.['maxlength']['requiredLength']}} character
+						</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-6">
+					<mat-form-field appearance="fill" class="w-100">
+						<mat-label>Last Name</mat-label>
+						<input matInput autocomplete="off" type="text" formControlName="lastName" />
+						<mat-error *ngIf="lastName.errors?.['required']"> last name is <strong>required</strong> </mat-error>
+						<mat-error *ngIf="lastName.hasError('maxlength') && !lastName.errors?.['required']">
+							last name must be less than {{lastName.errors?.['maxlength']['requiredLength']}} character
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<mat-form-field appearance="fill" class="w-100">
+				<mat-label>Username</mat-label>
+				<input matInput autocomplete="off" type="text" formControlName="userName" />
+				<mat-hint>only English charachters and numbers are allowed</mat-hint>
+				<mat-error *ngIf="userName.errors?.['required']"> username is <strong>required</strong> </mat-error>
+				<mat-error *ngIf="userName.hasError('maxlength') && !userName.errors?.['required']">
+					username must be less than {{userName.errors?.['maxlength']['requiredLength']}} character
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="fill" class="w-100">
+				<mat-label>Email</mat-label>
+				<input matInput autocomplete="off" type="email" formControlName="email" />
+				<mat-icon matSuffix>email</mat-icon>
+				<mat-error *ngIf="email.errors?.['required']"> email is <strong>required</strong> </mat-error>
+				<mat-error *ngIf="email.errors?.['email']"> email is <strong>invalid</strong> </mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="fill" class="w-100">
+				<mat-label>Phone Number</mat-label>
+				<input matInput autocomplete="off" type="tel" formControlName="phoneNumber" />
+				<mat-icon matSuffix>phone</mat-icon>
+				<mat-error *ngIf="phone.errors?.['pattern']&& !phone.errors?.['required']"> Please enter a valid phone number </mat-error>
+				<mat-error *ngIf="phone.errors?.['required']"> phone number is <strong>required</strong> </mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="fill" class="w-100">
+				<mat-label>Password</mat-label>
+				<input matInput autocomplete="off" [type]="hide ? 'password' : 'text'" formControlName="password" />
+				<button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+					<mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+				</button>
+				<mat-error *ngIf="password.errors?.['minlength'] && !password.errors?.['required']">
+					password must be greater than {{password.errors?.['minlength']?.['requiredLength']}} character
+				</mat-error>
+				<mat-error *ngIf="password.errors?.['required']"> Password is <strong>required</strong> </mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="fill" class="w-100">
+				<mat-label>Confirm Password</mat-label>
+				<input matInput autocomplete="off" [type]="hideConfirm ? 'password' : 'text'" formControlName="confirmPassword" />
+				<button type="button" mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide confirm password'" [attr.aria-pressed]="hideConfirm">
+					<mat-icon>{{ hideConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
+				</button>
+				<mat-error *ngIf="confirmPassword.errors?.['required']"> confirm Password is <strong>required</strong> </mat-error>
+			</mat-form-field>
+			<mat-error *ngIf="registerForm.hasError('mismatch') &&!confirmPassword.errors?.['required']"> confirm Password is incorrect </mat-error>
+		</mat-card-content>
+		<mat-card-actions align="end" class="justify-content-between">
+			<button type="button" mat-stroked-button color="primary" class="mx-2" (click)="handleLogin()">have account?</button>
+			<button mat-raised-button color="primary" [disabled]="!registerForm.valid || logging">Register</button>
+		</mat-card-actions>
+	</form>
+</mat-card>

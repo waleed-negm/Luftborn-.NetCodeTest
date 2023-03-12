@@ -1,0 +1,108 @@
+{
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"version": 1,
+	"newProjectRoot": "projects",
+	"projects": {
+		"luftbornNetTest": {
+			"projectType": "application",
+			"schematics": {},
+			"root": "",
+			"sourceRoot": "src",
+			"prefix": "app",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:browser",
+					"options": {
+						"outputPath": "dist/luftbornNetTest",
+						"index": "src/index.html",
+						"main": "src/main.ts",
+						"polyfills": ["zone.js"],
+						"tsConfig": "tsconfig.app.json",
+						"styles": ["node_modules/ngx-toastr/toastr.css", "node_modules/bootstrap/dist/css/bootstrap.min.css", "@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.css"],
+						"scripts": ["./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"],
+						"assets": ["src/favicon.ico", "src/assets", "src/web.config", "src/manifest.webmanifest"],
+						"serviceWorker": true,
+						"ngswConfigPath": "ngsw-config.json"
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kb",
+									"maximumError": "1mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "2kb",
+									"maximumError": "4kb"
+								}
+							],
+							"fileReplacements": [
+								{
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.prod.ts"
+								}
+							],
+							"optimization": {
+								"scripts": true,
+								"styles": {
+									"minify": true,
+									"inlineCritical": true
+								},
+								"fonts": true
+							},
+							"outputHashing": "all",
+							"sourceMap": false,
+							"namedChunks": false,
+							"aot": true,
+							"extractLicenses": true,
+							"vendorChunk": true,
+							"buildOptimizer": true,
+							"deleteOutputPath": true
+						},
+						"development": {
+							"buildOptimizer": false,
+							"optimization": false,
+							"vendorChunk": true,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"namedChunks": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"configurations": {
+						"production": {
+							"browserTarget": "luftbornNetTest:build:production",
+							"host": "192.168.1.19"
+						},
+						"development": {
+							"browserTarget": "luftbornNetTest:build:development",
+							"host": "localhost"
+						}
+					},
+					"defaultConfiguration": "development"
+				},
+				"extract-i18n": {
+					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"options": {
+						"browserTarget": "luftbornNetTest:build"
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": ["zone.js", "zone.js/testing"],
+						"tsConfig": "tsconfig.spec.json",
+						"assets": ["favicon.ico", "assets", "src/manifest.webmanifest"],
+						"styles": ["@angular/material/prebuilt-themes/purple-green.css", "src/styles.css"],
+						"scripts": []
+					}
+				}
+			}
+		}
+	}
+}
